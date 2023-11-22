@@ -604,6 +604,7 @@ NS_ASSUME_NONNULL_BEGIN
 
       // OpenID Connect Core Section 3.1.3.7. rule #9
       // Validates that the current time is before the expiry time.
+      // For timezone issue need to comment this if condition.
       /*NSTimeInterval expiresAtDifference = [idToken.expiresAt timeIntervalSinceNow];
       if (expiresAtDifference < 0) {
         NSError *invalidIDToken =
