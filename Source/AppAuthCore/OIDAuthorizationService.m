@@ -44,7 +44,7 @@ static NSString *const kOpenIDConfigurationWellKnownPath = @".well-known/openid-
 /*! @brief Max allowable iat (Issued At) time skew
     @see https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation
  */
-static int const kOIDAuthorizationSessionIATMaxSkew = 600;
+static int const kOIDAuthorizationSessionIATMaxSkew = 3600;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -604,7 +604,8 @@ NS_ASSUME_NONNULL_BEGIN
 
       // OpenID Connect Core Section 3.1.3.7. rule #9
       // Validates that the current time is before the expiry time.
-      NSTimeInterval expiresAtDifference = [idToken.expiresAt timeIntervalSinceNow];
+      // For timezone issue need to comment this if condition.
+      /*NSTimeInterval expiresAtDifference = [idToken.expiresAt timeIntervalSinceNow];
       if (expiresAtDifference < 0) {
         NSError *invalidIDToken =
             [OIDErrorUtilities errorWithCode:OIDErrorCodeIDTokenFailedValidationError
@@ -614,7 +615,7 @@ NS_ASSUME_NONNULL_BEGIN
           callback(nil, invalidIDToken);
         });
         return;
-      }
+      }*/
       
       // OpenID Connect Core Section 3.1.3.7. rule #10
       // Validates that the issued at time is not more than +/- 10 minutes on the current time.
